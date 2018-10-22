@@ -5,7 +5,6 @@ const MOVIE_TYPE = 'MOVIE_TYPE';
 // utils
 const get = (obj, key) => obj[key];
 
-
 function* traceBackToRoot(node) {
   if (node) {
     yield node.value;
@@ -45,17 +44,6 @@ Graph.prototype = {
         error: false,
         node: get(this.graph, actor)
       }
-    }
-  },
-  getActorNode: function (actor) {
-    if (Object.prototype.hasOwnProperty.call(this.graph, actor)) {
-      return {
-        error: false,
-        node: get(this.graph, actor)
-      }
-    }
-    return {
-      error: true
     }
   },
   _persist: function (node) {

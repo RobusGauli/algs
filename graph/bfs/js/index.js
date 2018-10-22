@@ -7,7 +7,7 @@ const {
 } = require('./bfs');
 
 
-(function(start, end){
+((start, end) => {
   let graph = new Graph();
   // create a graph from the give json data
   graph.createGraphFromData(data);
