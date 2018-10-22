@@ -120,7 +120,7 @@ function traverse(graph, start, end) {
  * 
  * @param {object} graph 
  * @param {number} start 
- * @param {numbe} end 
+ * @param {number} end 
  */
 function traverseNext(graph, start, end) {
   const { node: startNode } = graph.getActorNode(start);
