@@ -88,45 +88,49 @@ function traverse(graph, start, end) {
   
   const queue = [];
   queue.push(startNode);
-
+  startNode.visited = true;
   while(queue.length) {
     
     const node = queue.shift();
-    console.log(node.value, node.visited);
-    if (node.visited) continue;
-      
-      // mark as visited
-      node.visited = true;
-      console.log(node.value);
       // check to see if it matches the end Node
-      if (node.value === endNode.value) {
-        
-        return node;
-      }
+      if (node.value === endNode.value) return node;
       
       node.edges.forEach(childNode => {
-        queue.push(childNode);
-        // point the child node to its parent
-        childNode.parent = node;
+        if (!childNode.visited) {
+          childNode.visited = true;
+          queue.push(childNode);
+          // point the child node to its parent
+          childNode.parent = node;
+        }
       })
     
   }
   
 }
+
+function traceBackToRoot(node) {
+  const path = [];
+  let currentNode = node;
+  while(currentNode) {
+    path.push(currentNode.value);
+    currentNode = currentNode.parent;
+  }
+  return path;
+}
+
 function main() {
   let graph = new Graph();
   // create a graph from the give json data
   graph.createGraphFromData(data);
   // traverse using the breadth first search algorithm
   // by finding the relationship in between two actors
-  const start = 'one';
+  const start = 1;
   const end = 9;
   
   const targetNode = traverse(graph, start, end);
-  //console.log(targetNode);
-  if(targetNode) {
-    //console.log(targetNode);
-  }
+  // trace back the parent to get the path
+  const path = traceBackToRoot(targetNode);
+  console.log(path);
 }
 
 main();
