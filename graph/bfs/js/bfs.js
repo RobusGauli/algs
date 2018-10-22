@@ -26,6 +26,9 @@ Node.prototype = {
   connect: function (node) {
     this.edges.push(node);
     node.edges.push(this);
+  },
+  equals: function(node) {
+    return this.value === node.value;
   }
 }
 
@@ -39,11 +42,16 @@ function Graph() {
 
 Graph.prototype = {
   getActorNode: function (actor) {
+    //if (typeof actor !== 'number') throw new TypeError('Actor must be of type integer.');
+
     if (Object.prototype.hasOwnProperty.call(this.graph, actor)) {
       return {
         error: false,
         node: get(this.graph, actor)
       }
+    }
+    return {
+      error: true,
     }
   },
   _persist: function (node) {
@@ -73,12 +81,20 @@ Graph.prototype = {
   }
 }
 
+/**
+ * Wikipedia implementation of breadth first search.
+ * 
+ * @param {object} graph 
+ * @param {number} start 
+ * @param {number} end 
+ */
 function traverse(graph, start, end) {
   const { node: startNode } = graph.getActorNode(start);
   const { node: endNode } = graph.getActorNode(end);
 
   const queue = [];
   queue.push(startNode);
+  // set visited here
   startNode.visited = true;
   while (queue.length) {
 
@@ -88,6 +104,7 @@ function traverse(graph, start, end) {
 
     node.edges.forEach(childNode => {
       if (!childNode.visited) {
+        // set visited here again
         childNode.visited = true;
         queue.push(childNode);
         // point the child node to its parent
@@ -98,10 +115,42 @@ function traverse(graph, start, end) {
 
 }
 
+/**
+ * A more approachable code in my opinion.
+ * 
+ * @param {object} graph 
+ * @param {number} start 
+ * @param {numbe} end 
+ */
+function traverseNext(graph, start, end) {
+  const { node: startNode } = graph.getActorNode(start);
+  const { node: endNode } = graph.getActorNode(end);
+  
+  const queue = [];
+  queue.push(startNode);
+  while (queue.length) {
+    const currentNode = queue.shift();
+    if (currentNode.visited) continue;
+    // visited is set once just here :)
+
+    currentNode.visited = true;
+    if (currentNode.equals(endNode)){
+      return currentNode;
+    }
+    currentNode.edges.forEach(childNode => {
+      if(!childNode.visited) {
+        queue.push(childNode);
+        childNode.parent = currentNode;
+      }
+    })
+  }
+}
+
 module.exports = {
   Graph,
   traverse,
-  traceBackToRoot
+  traceBackToRoot,
+  traverseNext,
 }
 
 

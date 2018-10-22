@@ -2,7 +2,7 @@ const data = require('../data.json');
 
 const {
   Graph,
-  traverse,
+  traverseNext,
   traceBackToRoot
 } = require('./bfs');
 
@@ -12,7 +12,7 @@ const {
   // create a graph from the give json data
   graph.createGraphFromData(data);
   // traverse using the breadth first search algorithm
-  const targetNode = traverse(graph, start, end);
+  const targetNode = traverseNext(graph, start, end);
   // trace back the parent to get the path
   const path = [...traceBackToRoot(targetNode)];
   console.log(path);
