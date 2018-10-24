@@ -1,46 +1,55 @@
 #include <iostream>
 #include <vector>
+#include <map>
+#include <iterator>
 
 using namespace std;
-using namespace std;
 
-// class representing node
-namespace bfs {
-  class Node 
-  {
-    public:
-      int value;
-      Node* parent;
-      std::string nodeType;
-      std::vector<Node*> edges;
-      bool visited;
+// empty map container
 
-   public:
-    Node(int value, std::string nodeType): value(value), nodeType(nodeType) {visited = false;};
+class Node 
+{
+  public:
+   int value;
+   vector<Node*> edges;
+   bool isVisited;
+   Node* parent;
 
-    void addEdge(Node* node)
-    {
-      this -> edges.push_back(node);
-    }
+  public:
+    Node(int value): value(value) {isVisited = false;};
+    
+};
 
-    bool equals(Node* node)
-    {
-      return node -> value  == this -> value;
-    }
+ostream& operator<<(ostream& os, const Node& node)
+{
+  os << "Node(" << node.value << ")";
+  return os;
+}
 
-    void connect(Node* node)
-    {
-      this -> edges.push_back(node);
-      node -> edges.push_back(this);
-    }
-
-  };
-  
+vector<int>& getVectors()
+{
+  vector<int> numbers;
+  numbers.push_back(3);
+  numbers.push_back(1);
+  numbers.push_back(11);
+  return numbers;
 }
 int main()
 {
-  bfs::Node* node = new bfs::Node(3, "STRIN");
-  cout << node -> value << endl;
-  return 0;
+ 
+ int myints[] = {3, 4, 5, 6};
+
+  vector<int>& n = getVectors();
+
+  vector<int>::iterator i;
+  vector<int>::iterator start = n.begin();
+  vector<int>::iterator end = n.end();
+  for( i  = start; i < end;++i)
+  {
+    cout << *i << endl;
+  }
+ 
+ 
 }
+
 
