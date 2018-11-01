@@ -21,7 +21,6 @@ def from_list(alist=[]):
   return Node(alist[0], next_node=from_list(alist[1:]))
 
 # a function to traverse a linked list
-
 def traverse(node):
   if node:
     yield node.value
