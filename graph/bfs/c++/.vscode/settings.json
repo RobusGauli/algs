@@ -3,6 +3,7 @@
     "map": "cpp",
     "__split_buffer": "cpp",
     "string_view": "cpp",
-    "vector": "cpp"
+    "vector": "cpp",
+    "ostream": "cpp"
   }
 }
