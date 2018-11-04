@@ -7,6 +7,8 @@
 
 import random
 
+import pdb
+
 # utils
 
 
@@ -31,17 +33,21 @@ class Node:
         self.left = left
         self.right = right
 
+    def add_to_left(self, value):
+        if not self.left:
+            self.left = Node(value)
+            return
+        self.left.add(value)
+
+    def add_to_right(self, value):
+        if not self.right:
+            self.right = Node(value)
+            return
+        self.right.add(value)
+
     def add(self, value):
-        if value <= self.value:
-            if not self.left:
-                self.left = Node(value)
-            else:
-                self.left.add(value)
-        else:
-            if not self.right:
-                self.right = Node(value)
-            else:
-                self.right.add(value)
+        self.add_to_left(
+            value) if value <= self.value else self.add_to_right(value)
 
     def __repr__(self):
         return 'Node({}, left={}, right={})'.format(
